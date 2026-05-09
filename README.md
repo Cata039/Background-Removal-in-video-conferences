@@ -1,6 +1,85 @@
-> **Student project (video conferences):** see [FOR_PROFESSOR.md](FOR_PROFESSOR.md) for setup, what is excluded from GitHub (`*.pth`, `data/`), and how to download the official pretrained weight.
-
 # Robust Video Matting (RVM)
+
+This repository includes the original **Robust Video Matting** project plus a **student extension**: a local web UI for trying background removal (video-call style), fine-tuning scripts, experiment logs, and charts.
+
+---
+
+## For reviewers (professor / TA): run the web interface on your computer
+
+Follow these steps once on **macOS, Windows, or Linux**. You need **Python 3.10 or newer** (3.11/3.12 are fine), a **webcam**, and internet for **clone + one weight download**.
+
+### 1) Clone the repository
+
+```bash
+git clone https://github.com/Cata039/Background-Removal-in-video-conferences.git
+cd Background-Removal-in-video-conferences
+```
+
+### 2) Create a virtual environment (recommended)
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+### 3) Install Python dependencies
+
+Install **both** files (inference stack + web UI):
+
+```bash
+pip install --upgrade pip
+pip install -r requirements_inference.txt
+pip install -r requirements_interface.txt
+```
+
+If `pip` fails on PyTorch, install PyTorch for your platform from [pytorch.org](https://pytorch.org/) first, then rerun the two `pip install -r` commands.
+
+### 4) Download the official pretrained weights (required)
+
+The web UI needs **one** weight file in the **project root** (same folder as `interface_app.py`):
+
+- **File name:** `rvm_mobilenetv3.pth`  
+- **Direct download:**  
+  https://github.com/PeterL1n/RobustVideoMatting/releases/download/v1.0.0/rvm_mobilenetv3.pth  
+
+Place the file next to `interface_app.py`. Without it, checkpoint dropdown entries that rely on this baseline will not load.
+
+### 5) Student fine-tuned checkpoints (optional)
+
+**GitHub does not store** large model files (`*.pth`) from training — only **code**, **CSV logs**, and **chart images**.
+
+- To **compare experiments live** in the UI with the student’s trained epochs, ask the student for their `.pth` files (or a zip), then copy them into the **same project root** so names match what the UI expects (for example `attempt2_epoch50.pth`, `attempt2_lr1e-5_epoch50.pth`, `rvm_epoch50.pth`, etc.).
+- If you **only** have `rvm_mobilenetv3.pth`, you can still open the UI and use **Pretrained** and any checkpoints you were given; experiment curves are also summarized in `training_log_*.csv` and `charts/`.
+
+### 6) Run the web interface
+
+```bash
+python interface_app.py
+```
+
+The terminal prints a **local URL** (often `http://127.0.0.1:` plus a port). Open it in **Chrome / Edge / Safari**.
+
+- Grant **camera** permission when the browser asks.
+- Use **Experiment** and **Checkpoint / Saved Epoch** to switch setups.
+- Optional backgrounds live under `ui_assets/backgrounds/` or upload inside the UI.
+
+### 7) Review experiments without running the UI
+
+- **Loss vs epoch:** CSV files `training_log*.csv` in the repo root.  
+- **Plots:** PNG files under `charts/` (and other `*_chart*.png` in the root if present).
+
+---
+
+Below is the **original upstream RVM README** (paper, citations, training, etc.).
 
 ![Teaser](/documentation/image/teaser.gif)
 
@@ -39,25 +118,8 @@ All footage in the video are available in [Google Drive](https://drive.google.co
 
 ### Local Web Interface (custom)
 
-This repo includes a local Gradio interface in `interface_app.py` with:
-- live webcam preview
-- alpha matte preview
-- composited output with selectable background
-- checkpoint/epoch selector
-
-Install interface dependencies:
-```sh
-pip install -r requirements_interface.txt
-```
-
-Run:
-```sh
-python interface_app.py
-```
-
-Optional assets:
-- place custom backgrounds in `ui_assets/backgrounds/`
-- or upload a background from inside the UI
+**Full step-by-step setup (environment, download weights, run the UI) is in the section *For reviewers (professor / TA)* at the top of this README.**  
+Summary: `pip install -r requirements_inference.txt` and `pip install -r requirements_interface.txt`, place `rvm_mobilenetv3.pth` in the project root, then `python interface_app.py`.
 
 <br>
 
