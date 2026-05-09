@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+
+# Large / local-only (do not push to GitHub)
+*.pth
+data/
+
+# Optional large logs (keep small CSV training logs tracked — remove next line if logs get huge)
+# *.csv

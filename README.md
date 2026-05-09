@@ -1,3 +1,5 @@
+> **Student project (video conferences):** see [FOR_PROFESSOR.md](FOR_PROFESSOR.md) for setup, what is excluded from GitHub (`*.pth`, `data/`), and how to download the official pretrained weight.
+
 # Robust Video Matting (RVM)
 
 ![Teaser](/documentation/image/teaser.gif)
@@ -34,6 +36,28 @@ All footage in the video are available in [Google Drive](https://drive.google.co
 ## Demo
 * [Webcam Demo](https://peterl1n.github.io/RobustVideoMatting/#/demo): Run the model live in your browser. Visualize recurrent states.
 * [Colab Demo](https://colab.research.google.com/drive/10z-pNKRnVNsp0Lq9tH1J_XPZ7CBC_uHm?usp=sharing): Test our model on your own videos with free GPU. 
+
+### Local Web Interface (custom)
+
+This repo includes a local Gradio interface in `interface_app.py` with:
+- live webcam preview
+- alpha matte preview
+- composited output with selectable background
+- checkpoint/epoch selector
+
+Install interface dependencies:
+```sh
+pip install -r requirements_interface.txt
+```
+
+Run:
+```sh
+python interface_app.py
+```
+
+Optional assets:
+- place custom backgrounds in `ui_assets/backgrounds/`
+- or upload a background from inside the UI
 
 <br>
 
