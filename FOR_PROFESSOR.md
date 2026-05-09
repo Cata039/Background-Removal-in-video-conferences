@@ -14,7 +14,7 @@ This project builds on **[Robust Video Matting (RVM)](https://github.com/PeterL1
 
 | Item | Why excluded | How to obtain |
 |------|----------------|---------------|
-| `*.pth` model weights | Each ~15 MB; dozens of checkpoints ≈ hundreds of MB | Download official **`rvm_mobilenetv3.pth`** from the [RVM releases](https://github.com/PeterL1n/RobustVideoMatting/releases/tag/v1.0.0). Place it in the project root. Your fine-tuned checkpoints stay on your machine — zip them separately if required. |
+| `*.pth` model weights | Each ~15 MB; dozens of checkpoints ≈ hundreds of MB | Download official **`rvm_mobilenetv3.pth`** from the [RVM releases](https://github.com/PeterL1n/RobustVideoMatting/releases/tag/v1.0.0). Place it in the project root. 
 | `data/` (clips + mattes) | Hundreds of MB | - |
 
 ## Quick run (after clone)
