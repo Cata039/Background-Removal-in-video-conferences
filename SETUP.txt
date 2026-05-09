@@ -1,0 +1,120 @@
+================================================================================
+BACKGROUND REMOVAL IN VIDEO CONFERENCES — SETUP FOR REVIEWERS (PLAIN TEXT)
+================================================================================
+
+This archive contains:
+  • Code (Gradio web UI: interface_app.py, fine-tuning: finetune.py, etc.)
+  • Experiment logs: training_log*.csv (loss per epoch)
+  • Charts: charts/*.png and related PNG files
+  • Sample backgrounds: ui_assets/backgrounds/
+
+Large neural network weights (*.pth) are NOT on GitHub because they are huge.
+If you received this as a ZIP from the student, INCLUDE ALL *.pth FILES THE STUDENT
+PUT IN THE ZIP — then everything works offline without extra downloads.
+
+
+WHAT YOU NEED ON YOUR COMPUTER
+--------------------------------------------------------------------------------
+  • Python 3.10 or newer (3.11 / 3.12 OK)
+  • A webcam (for live demo in the browser)
+  • ~2 GB free disk (code + dependencies + weights; more if many checkpoints)
+
+
+STEP 1 — UNZIP
+--------------------------------------------------------------------------------
+Unpack the ZIP anywhere, e.g.:
+
+  macOS / Linux:  unzip ... -d ~/Projects/RVM-student
+  Windows:        Extract All ...
+
+Open a terminal / PowerShell and go into that folder (where interface_app.py is).
+
+
+STEP 2 — VIRTUAL ENVIRONMENT (RECOMMENDED)
+--------------------------------------------------------------------------------
+  macOS / Linux:
+
+    python3 -m venv .venv
+    source .venv/bin/activate
+
+  Windows (PowerShell):
+
+    python -m venv .venv
+    .\.venv\Scripts\Activate.ps1
+
+
+STEP 3 — INSTALL PYTHON PACKAGES
+--------------------------------------------------------------------------------
+From the project folder (same level as interface_app.py):
+
+    pip install --upgrade pip
+    pip install -r requirements_inference.txt
+    pip install -r requirements_interface.txt
+
+If PyTorch fails to install, install it first from https://pytorch.org for your
+system, then run the two lines above again.
+
+
+STEP 4 — MODEL WEIGHTS (*.pth)
+--------------------------------------------------------------------------------
+The web UI loads checkpoints from the PROJECT ROOT (same folder as interface_app.py).
+
+A) OFFICIAL PRETRAINED (baseline)
+
+   File name:  rvm_mobilenetv3.pth
+
+   If the student did NOT include it in the ZIP, download once from:
+   https://github.com/PeterL1n/RobustVideoMatting/releases/download/v1.0.0/rvm_mobilenetv3.pth
+
+   Save it in the project root (next to interface_app.py).
+
+B) STUDENT FINE-TUNED CHECKPOINTS (experiments / epochs)
+
+   If the student zipped the project from their machine, you should see files like:
+     rvm_epoch10.pth, attempt2_epoch50.pth, attempt2_lr1e-5_epoch50.pth, etc.
+
+   Leave them in the project root. The Gradio app lists them under “Experiment” /
+   “Checkpoint”.
+
+   If those files are missing, you can still read training_log*.csv and charts/ for
+   numeric comparison, but you cannot load those models in the UI.
+
+
+STEP 5 — RUN THE WEB INTERFACE
+--------------------------------------------------------------------------------
+
+    python interface_app.py
+
+Wait until the terminal prints a local URL (e.g. http://127.0.0.1:XXXX).
+
+Open that URL in Chrome, Edge, or Safari.
+
+  • Allow camera access when the browser asks.
+  • Choose Experiment and Checkpoint to compare runs.
+  • Backgrounds: dropdown or upload inside the UI; samples are in ui_assets/backgrounds/
+
+
+STEP 6 — REVIEW RESULTS WITHOUT THE LIVE DEMO
+--------------------------------------------------------------------------------
+  • training_log*.csv  — average loss per epoch (for plots / tables)
+  • charts/*.png       — saved comparison charts
+
+
+TROUBLESHOOTING
+--------------------------------------------------------------------------------
+  • “Cannot open camera” — grant camera permission to Terminal / Python / browser
+    in system privacy settings; on Mac, disable iPhone Continuity Camera if the
+    wrong camera appears.
+
+  • “Port already in use” — close another running interface_app.py, or set:
+    GRADIO_SERVER_PORT=7861  (macOS/Linux) before python interface_app.py
+
+  • Import errors — ensure both requirements files were installed in the same venv.
+
+
+ORIGINAL RVM PAPER / LICENSE
+--------------------------------------------------------------------------------
+This project builds on Robust Video Matting (GPL-3.0). Full upstream docs are in
+the documentation/ folder.
+
+================================================================================
